@@ -415,8 +415,8 @@ const DeckNotes = () => {
                   `}
                   onClick={(e) => handleCardClick(card, e)}
                 >
-                  <h3 className="font-bold text-base mb-1 text-white truncate">{card.title}</h3>
-                  <p className="text-sm text-gray-100 flex-1 overflow-hidden leading-tight">{card.summary}</p>
+                  <h3 className="font-bold text-xl mb-1 text-white truncate">{card.title}</h3>
+                  <p className="text-base text-gray-100 flex-1 overflow-hidden leading-tight">{card.summary}</p>
                 </div>
               ))}
             </div>
