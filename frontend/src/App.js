@@ -219,6 +219,28 @@ const DeckNotes = () => {
     }
   };
 
+  // Handle clicking outside modals to close them
+  const handleModalBackdropClick = (e, modalType) => {
+    if (e.target === e.currentTarget) {
+      switch (modalType) {
+        case 'create':
+          setShowCreateModal(false);
+          resetForm();
+          setEditingCard(null);
+          break;
+        case 'card':
+          setShowCardModal(false);
+          setDeleteConfirmId(null);
+          break;
+        case 'about':
+          setShowAboutModal(false);
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
   // Drag and Drop handlers
   const handleDragStart = (e, card) => {
     setDraggedCard(card);
