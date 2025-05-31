@@ -186,10 +186,36 @@ const DeckNotes = () => {
 
   const copyToClipboard = async (text) => {
     try {
-      await navigator.clipboard.writeText(text);
-      alert('Copied to clipboard!');
+      // Modern clipboard API
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        alert('Copied to clipboard!');
+      } else {
+        // Fallback for older browsers or non-secure contexts
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+          document.execCommand('copy');
+          alert('Copied to clipboard!');
+        } catch (err) {
+          console.error('Fallback copy failed:', err);
+          // Show the text in a prompt as final fallback
+          prompt('Copy this text manually:', text);
+        }
+        
+        document.body.removeChild(textArea);
+      }
     } catch (error) {
       console.error('Failed to copy to clipboard:', error);
+      // Show the text in a prompt as fallback
+      prompt('Copy this text manually:', text);
     }
   };
 
