@@ -762,6 +762,19 @@ const DeckNotes = () => {
                 </p>
               </div>
 
+              <div className="bg-gray-700 rounded-lg p-4">
+                <h3 className="text-lg font-semibold mb-3 text-blue-400">Try it out!</h3>
+                <p className="text-gray-300 text-sm mb-3">
+                  Want to see DeckNotes in action? Generate 20 sample D&D cards including popular spells, feats, conditions, and items to test all the features.
+                </p>
+                <button
+                  onClick={generateSampleCards}
+                  className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium transition-colors text-sm"
+                >
+                  🎲 Generate 20 D&D Sample Cards
+                </button>
+              </div>
+
               <div>
                 <h3 className="text-lg font-semibold mb-3">Features</h3>
                 <div className="space-y-3">
