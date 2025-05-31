@@ -335,35 +335,35 @@ const DeckNotes = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Header */}
-      <header className="bg-gray-800 border-b border-gray-700 p-3">
+      <header className="bg-gray-800 border-b border-gray-700 p-2">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold">DeckNotes</h1>
-            <p className="text-xs text-gray-400 mt-0.5">Get your game on deck!</p>
+          <div className="flex items-center gap-3">
+            <h1 className="text-xl font-bold">DeckNotes</h1>
+            <p className="text-xs text-gray-400">Get your game on deck!</p>
           </div>
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-2 items-center">
             <button
               onClick={() => setShowAboutModal(true)}
-              className="bg-gray-700 hover:bg-gray-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors"
+              className="bg-gray-700 hover:bg-gray-600 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors"
               title="About & Feedback"
             >
               i
             </button>
             <button
               onClick={handleCreateCard}
-              className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded text-sm font-medium transition-colors"
             >
               + Card
             </button>
             <button
               onClick={exportCards}
-              className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-medium transition-colors"
+              className="bg-green-600 hover:bg-green-700 px-3 py-1.5 rounded text-sm font-medium transition-colors"
             >
               Export
             </button>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition-colors"
+              className="bg-purple-600 hover:bg-purple-700 px-3 py-1.5 rounded text-sm font-medium transition-colors"
             >
               Import
             </button>
