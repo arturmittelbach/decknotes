@@ -9,6 +9,8 @@ const DeckNotes = () => {
   const [editingCard, setEditingCard] = useState(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState(null);
   const [cardModalPosition, setCardModalPosition] = useState({ x: 0, y: 0 });
+  const [draggedCard, setDraggedCard] = useState(null);
+  const [dragOverCard, setDragOverCard] = useState(null);
   const fileInputRef = useRef(null);
 
   // Form state
@@ -165,6 +167,9 @@ const DeckNotes = () => {
   };
 
   const handleCardClick = (card, event) => {
+    // Don't open modal if currently dragging
+    if (draggedCard) return;
+    
     const rect = event.currentTarget.getBoundingClientRect();
     setCardModalPosition({
       x: rect.left + rect.width / 2,
@@ -219,6 +224,58 @@ const DeckNotes = () => {
     }
   };
 
+  // Drag and Drop handlers
+  const handleDragStart = (e, card) => {
+    setDraggedCard(card);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', e.target.outerHTML);
+    e.dataTransfer.setDragImage(e.target, 0, 0);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDragEnter = (e, card) => {
+    e.preventDefault();
+    setDragOverCard(card);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setDragOverCard(null);
+  };
+
+  const handleDrop = (e, targetCard) => {
+    e.preventDefault();
+    
+    if (!draggedCard || draggedCard.id === targetCard.id) {
+      setDraggedCard(null);
+      setDragOverCard(null);
+      return;
+    }
+
+    const currentCards = [...cards];
+    const draggedIndex = currentCards.findIndex(card => card.id === draggedCard.id);
+    const targetIndex = currentCards.findIndex(card => card.id === targetCard.id);
+
+    // Remove dragged card from its current position
+    const [removed] = currentCards.splice(draggedIndex, 1);
+    
+    // Insert dragged card at target position
+    currentCards.splice(targetIndex, 0, removed);
+
+    setCards(currentCards);
+    setDraggedCard(null);
+    setDragOverCard(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedCard(null);
+    setDragOverCard(null);
+  };
+
   const exportCards = () => {
     const dataStr = JSON.stringify(cards, null, 2);
     const dataBlob = new Blob([dataStr], { type: 'application/json' });
@@ -263,7 +320,10 @@ const DeckNotes = () => {
       {/* Header */}
       <header className="bg-gray-800 border-b border-gray-700 p-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">DeckNotes</h1>
+          <div>
+            <h1 className="text-2xl font-bold">DeckNotes</h1>
+            <p className="text-sm text-gray-400 mt-1">Drag cards to reorder</p>
+          </div>
           <div className="flex gap-3">
             <button
               onClick={handleCreateCard}
@@ -312,11 +372,25 @@ const DeckNotes = () => {
               {cards.map((card) => (
                 <div
                   key={card.id}
-                  className={`${getColorClass(card.color)} rounded-lg p-4 cursor-pointer hover:opacity-90 transition-opacity h-32 flex flex-col`}
+                  draggable="true"
+                  onDragStart={(e) => handleDragStart(e, card)}
+                  onDragOver={handleDragOver}
+                  onDragEnter={(e) => handleDragEnter(e, card)}
+                  onDragLeave={handleDragLeave}
+                  onDrop={(e) => handleDrop(e, card)}
+                  onDragEnd={handleDragEnd}
+                  className={`${getColorClass(card.color)} rounded-lg p-4 cursor-pointer hover:opacity-90 transition-all h-32 flex flex-col
+                    ${draggedCard?.id === card.id ? 'opacity-50 transform rotate-3' : ''}
+                    ${dragOverCard?.id === card.id ? 'ring-2 ring-white ring-opacity-50 transform scale-105' : ''}
+                    ${draggedCard ? 'cursor-grabbing' : 'cursor-grab'}
+                  `}
                   onClick={(e) => handleCardClick(card, e)}
                 >
                   <h3 className="font-bold text-lg mb-2 text-white truncate">{card.title}</h3>
                   <p className="text-sm text-gray-100 flex-1 overflow-hidden">{card.summary}</p>
+                  <div className="text-xs text-gray-200 opacity-75 mt-2">
+                    {draggedCard ? '↕ Drop to reorder' : '↕ Drag to reorder'}
+                  </div>
                 </div>
               ))}
             </div>
