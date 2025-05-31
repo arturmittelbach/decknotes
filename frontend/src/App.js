@@ -130,6 +130,9 @@ const DeckNotes = () => {
       description: card.description,
       color: card.color
     });
+    // Close the detail modal when opening edit modal
+    setShowCardModal(false);
+    setDeleteConfirmId(null);
     setShowCreateModal(true);
   };
 
