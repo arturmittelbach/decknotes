@@ -30,15 +30,61 @@ const DeckNotes = () => {
     { value: 'gray', class: 'bg-gray-600', label: 'Gray' }
   ];
 
+  // Default example cards for better UX
+  const getDefaultCards = () => [
+    {
+      id: 1,
+      title: "Rage",
+      summary: "Advantage on Str checks, +2 damage",
+      description: "You have advantage on Strength checks and Strength saving throws. When you make a melee weapon attack using Strength, you gain a +2 bonus to the damage roll. You have resistance to bludgeoning, piercing, and slashing damage.",
+      color: "red",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 2,
+      title: "Flurry of Blows",
+      summary: "2 unarmed strikes as bonus action",
+      description: "Immediately after you take the Attack action on your turn, you can spend 1 ki point to make two unarmed strikes as a bonus action.",
+      color: "purple",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 3,
+      title: "Lucky",
+      summary: "Reroll dice 3 times per day",
+      description: "You have 3 luck points. Whenever you make an attack roll, an ability check, or a saving throw, you can spend one luck point to roll an additional d20. You can choose to spend one of your luck points after you roll the die, but before the outcome is determined.",
+      color: "green",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 4,
+      title: "Grappled",
+      summary: "Speed = 0, cannot move",
+      description: "A grappled creature's speed becomes 0, and it can't benefit from any bonus to its speed. The condition ends if the grappler is incapacitated or if an effect removes the grappled creature from the reach of the grappler or grappling effect.",
+      color: "yellow",
+      createdAt: new Date().toISOString()
+    }
+  ];
+
   // Load cards from localStorage on component mount
   useEffect(() => {
     const savedCards = localStorage.getItem('deckNotes_cards');
     if (savedCards) {
       try {
-        setCards(JSON.parse(savedCards));
+        const parsedCards = JSON.parse(savedCards);
+        if (parsedCards.length > 0) {
+          setCards(parsedCards);
+        } else {
+          // If localStorage exists but is empty, load default cards
+          setCards(getDefaultCards());
+        }
       } catch (error) {
         console.error('Error loading cards from localStorage:', error);
+        setCards(getDefaultCards());
       }
+    } else {
+      // First time users get default cards
+      setCards(getDefaultCards());
     }
   }, []);
 
