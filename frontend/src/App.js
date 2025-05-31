@@ -335,11 +335,11 @@ const DeckNotes = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Header */}
-      <header className="bg-gray-800 border-b border-gray-700 p-4">
+      <header className="bg-gray-800 border-b border-gray-700 p-3">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold">DeckNotes</h1>
-            <p className="text-sm text-gray-400 mt-1">Drag cards to reorder</p>
+            <p className="text-xs text-gray-400 mt-0.5">Get your game on deck!</p>
           </div>
           <div className="flex gap-3 items-center">
             <button
