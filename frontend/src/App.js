@@ -341,7 +341,14 @@ const DeckNotes = () => {
             <h1 className="text-2xl font-bold">DeckNotes</h1>
             <p className="text-sm text-gray-400 mt-1">Drag cards to reorder</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
+            <button
+              onClick={() => setShowAboutModal(true)}
+              className="bg-gray-700 hover:bg-gray-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors"
+              title="About & Feedback"
+            >
+              i
+            </button>
             <button
               onClick={handleCreateCard}
               className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium transition-colors"
