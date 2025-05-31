@@ -424,7 +424,10 @@ const DeckNotes = () => {
 
       {/* Create/Edit Card Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+          onClick={(e) => handleModalBackdropClick(e, 'create')}
+        >
           <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md">
             <h2 className="text-xl font-bold mb-4">
               {editingCard ? 'Edit Card' : 'Create New Card'}
@@ -505,7 +508,10 @@ const DeckNotes = () => {
 
       {/* Card Detail Modal */}
       {showCardModal && selectedCard && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+          onClick={(e) => handleModalBackdropClick(e, 'card')}
+        >
           <div className="bg-gray-800 rounded-lg p-6 w-full max-w-lg">
             <div className={`${getColorClass(selectedCard.color)} rounded-lg p-4 mb-4`}>
               <h2 className="text-xl font-bold text-white">{selectedCard.title}</h2>
@@ -549,6 +555,84 @@ const DeckNotes = () => {
               >
                 Close
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* About Modal */}
+      {showAboutModal && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+          onClick={(e) => handleModalBackdropClick(e, 'about')}
+        >
+          <div className="bg-gray-800 rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">About DeckNotes</h2>
+              <button
+                onClick={() => setShowAboutModal(false)}
+                className="text-gray-400 hover:text-white text-2xl"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="space-y-6">
+              <div>
+                <p className="text-gray-300 leading-relaxed mb-4">
+                  DeckNotes is a simple tool to help RPG players remember abilities, conditions, feats, special effects during play. Think of it as a digital post-it wall for your character — visual, organized, and always within reach.
+                </p>
+                <p className="text-gray-300 leading-relaxed mb-4">
+                  It's perfect for side monitors, online games, or quick referencing at the table.
+                  Built as a passion project, its goal is to make play smoother by cutting down on forgotten details and rulebook dives.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Features</h3>
+                <div className="space-y-3">
+                  <div>
+                    <h4 className="font-medium text-blue-400">Custom Cards</h4>
+                    <p className="text-gray-300 text-sm">Add a title, short summary, full description, and color tag to each card.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-green-400">Quick Add & Edit</h4>
+                    <p className="text-gray-300 text-sm">Create or update cards easily using a clean popup form.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-purple-400">Expand & Copy</h4>
+                    <p className="text-gray-300 text-sm">Click any card to view full details and copy the text with one tap.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-yellow-400">Responsive Grid + Drag & Organize</h4>
+                    <p className="text-gray-300 text-sm">Cards auto-adjust to screen size and can be rearranged via drag-and-drop.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-red-400">Import / Export</h4>
+                    <p className="text-gray-300 text-sm">Save your deck as a .json file and reload it anytime.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-600 pt-6">
+                <h3 className="text-lg font-semibold mb-3">Feedback</h3>
+                <p className="text-gray-300 mb-4">
+                  If you've got feedback or ideas, we'd love to hear from you.
+                </p>
+                <a
+                  href="https://forms.gle/2pn6kgTh4FDHhpwQ9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-colors"
+                >
+                  Send Feedback
+                </a>
+              </div>
+
+              <div className="text-center text-gray-400 text-sm">
+                Thanks for using DeckNotes<br />
+                — Artur —
+              </div>
             </div>
           </div>
         </div>
