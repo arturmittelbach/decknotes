@@ -335,37 +335,39 @@ const DeckNotes = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Header */}
-      <header className="bg-gray-800 border-b border-gray-700 p-2">
+      <header className="bg-gray-800 border-b border-gray-700 py-1 px-2">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <h1 className="text-xl font-bold">DeckNotes</h1>
+            <h1 className="text-lg font-bold">DeckNotes</h1>
             <p className="text-xs text-gray-400">Get your game on deck!</p>
           </div>
           <div className="flex gap-2 items-center">
             <button
               onClick={() => setShowAboutModal(true)}
-              className="bg-gray-700 hover:bg-gray-600 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors"
+              className="bg-gray-700 hover:bg-gray-600 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors"
               title="About & Feedback"
             >
               i
             </button>
             <button
               onClick={handleCreateCard}
-              className="bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded text-sm font-medium transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 px-2 py-1 rounded text-sm font-medium transition-colors"
             >
-              + Card
+              +Card
             </button>
             <button
               onClick={exportCards}
-              className="bg-green-600 hover:bg-green-700 px-3 py-1.5 rounded text-sm font-medium transition-colors"
+              className="bg-green-600 hover:bg-green-700 px-2 py-1 rounded text-sm font-medium transition-colors"
+              title="Export cards"
             >
-              Export
+              ⬆
             </button>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="bg-purple-600 hover:bg-purple-700 px-3 py-1.5 rounded text-sm font-medium transition-colors"
+              className="bg-purple-600 hover:bg-purple-700 px-2 py-1 rounded text-sm font-medium transition-colors"
+              title="Import cards"
             >
-              Import
+              ⬇
             </button>
             <input
               ref={fileInputRef}
