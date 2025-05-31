@@ -675,3 +675,140 @@ function App() {
 }
 
 export default App;
+          <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4">
+              {editingCard ? 'Edit Card' : 'Create New Card'}
+            </h2>
+            <form onSubmit={handleSubmitCard}>
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">Title *</label>
+                <input
+                  type="text"
+                  value={formData.title}
+                  onChange={(e) => setFormData({...formData, title: e.target.value})}
+                  className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
+                  placeholder="e.g., Grappled"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">Short Summary *</label>
+                <input
+                  type="text"
+                  value={formData.summary}
+                  onChange={(e) => setFormData({...formData, summary: e.target.value})}
+                  className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
+                  placeholder="e.g., Speed = 0"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">Full Description *</label>
+                <textarea
+                  value={formData.description}
+                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500 h-24 resize-none"
+                  placeholder="Detailed rule text..."
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label className="block text-sm font-medium mb-2">Color Tag</label>
+                <div className="grid grid-cols-4 gap-2">
+                  {colorOptions.map((color) => (
+                    <button
+                      key={color.value}
+                      type="button"
+                      onClick={() => setFormData({...formData, color: color.value})}
+                      className={`${color.class} p-2 rounded text-white text-xs font-medium ${
+                        formData.color === color.value ? 'ring-2 ring-white' : ''
+                      }`}
+                    >
+                      {color.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  type="submit"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 py-2 rounded font-medium transition-colors"
+                >
+                  {editingCard ? 'Update Card' : 'Create Card'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowCreateModal(false);
+                    resetForm();
+                    setEditingCard(null);
+                  }}
+                  className="flex-1 bg-gray-600 hover:bg-gray-700 py-2 rounded font-medium transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Card Detail Modal */}
+      {showCardModal && selectedCard && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-gray-800 rounded-lg p-6 w-full max-w-lg">
+            <div className={`${getColorClass(selectedCard.color)} rounded-lg p-4 mb-4`}>
+              <h2 className="text-xl font-bold text-white">{selectedCard.title}</h2>
+              <p className="text-gray-100 mt-1">{selectedCard.summary}</p>
+            </div>
+            
+            <div className="mb-6">
+              <h3 className="font-medium mb-2">Description:</h3>
+              <p className="text-gray-300 leading-relaxed">{selectedCard.description}</p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => copyToClipboard(selectedCard.description)}
+                className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded font-medium transition-colors"
+              >
+                Copy Text
+              </button>
+              <button
+                onClick={() => handleEditCard(selectedCard)}
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-medium transition-colors"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDeleteCard(selectedCard.id)}
+                className={`px-4 py-2 rounded font-medium transition-colors ${
+                  deleteConfirmId === selectedCard.id
+                    ? 'bg-red-600 hover:bg-red-700'
+                    : 'bg-red-500 hover:bg-red-600'
+                }`}
+              >
+                {deleteConfirmId === selectedCard.id ? 'Confirm Delete' : 'Delete'}
+              </button>
+              <button
+                onClick={() => {
+                  setShowCardModal(false);
+                  setDeleteConfirmId(null);
+                }}
+                className="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded font-medium transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+function App() {
+  return <DeckNotes />;
+}
+
+export default App;
