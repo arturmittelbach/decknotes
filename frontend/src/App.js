@@ -332,6 +332,178 @@ const DeckNotes = () => {
     event.target.value = '';
   };
 
+  const generateSampleCards = () => {
+    const sampleCards = [
+      {
+        id: Date.now() + 1,
+        title: "Fireball",
+        summary: "8d6 fire damage, 20ft radius",
+        description: "A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot-radius sphere centered on that point must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one.",
+        color: "red",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 2,
+        title: "Great Weapon Master",
+        summary: "-5 attack, +10 damage",
+        description: "Before you make a melee attack with a heavy weapon that you are proficient with, you can choose to take a -5 penalty to the attack roll. If the attack hits, you add +10 to the attack's damage.",
+        color: "purple",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 3,
+        title: "Poisoned",
+        summary: "Disadvantage on attacks and ability checks",
+        description: "A poisoned creature has disadvantage on attack rolls and ability checks.",
+        color: "green",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 4,
+        title: "Healing Potion",
+        summary: "Regain 2d4+2 hit points",
+        description: "You regain 2d4 + 2 hit points when you drink this potion. The potion's red liquid glimmers when agitated.",
+        color: "red",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 5,
+        title: "Shield Spell",
+        summary: "+5 AC until start of next turn",
+        description: "An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from magic missile.",
+        color: "blue",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 6,
+        title: "Sneak Attack",
+        summary: "Extra damage with advantage",
+        description: "Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon.",
+        color: "gray",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 7,
+        title: "Stunned",
+        summary: "Incapacitated, can't move, auto-fail Str/Dex saves",
+        description: "A stunned creature is incapacitated, can't move, and can speak only falteringly. The creature automatically fails Strength and Dexterity saving throws. Attack rolls against the creature have advantage.",
+        color: "yellow",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 8,
+        title: "Hempen Rope",
+        summary: "50 feet, 2 hit points",
+        description: "Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check. This rope is 50 feet long.",
+        color: "gray",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 9,
+        title: "Action Surge",
+        summary: "Take one additional action",
+        description: "On your turn, you can take one additional action. Once you use this feature, you must finish a short or long rest before you can use it again.",
+        color: "blue",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 10,
+        title: "Charmed",
+        summary: "Can't attack charmer, advantage on social checks",
+        description: "A charmed creature can't attack the charmer or target the charmer with harmful abilities or magical effects. The charmer has advantage on any ability check to interact socially with the creature.",
+        color: "pink",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 11,
+        title: "Counterspell",
+        summary: "Stop a spell being cast",
+        description: "You attempt to interrupt a creature in the process of casting a spell. If the creature is casting a spell of 3rd level or lower, its spell fails and has no effect. If it is casting a spell of 4th level or higher, make an ability check using your spellcasting ability.",
+        color: "purple",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 12,
+        title: "Sharpshooter",
+        summary: "Ignore cover, -5 attack +10 damage",
+        description: "You can use a bonus action to mark a target. Attacking at long range doesn't impose disadvantage. Your ranged weapon attacks ignore half and three-quarters cover. Before you make an attack with a ranged weapon, you can choose to take a -5 penalty to the attack roll. If the attack hits, you add +10 to the attack's damage.",
+        color: "green",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 13,
+        title: "Exhaustion",
+        summary: "6 levels of increasing penalties",
+        description: "Some special abilities and environmental hazards, such as starvation and the long-term effects of freezing or scorching temperatures, can lead to a special condition called exhaustion. Level 1: Disadvantage on ability checks. Level 6: Death.",
+        color: "red",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 14,
+        title: "Thieves' Tools",
+        summary: "Pick locks, disarm traps",
+        description: "This set of tools includes a small file, a set of lock picks, a small mirror mounted on a metal handle, a set of narrow-bladed scissors, and a pair of pliers. Proficiency with these tools lets you add your proficiency bonus to any ability checks you make to disarm traps or open locks.",
+        color: "gray",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 15,
+        title: "Inspiration",
+        summary: "Reroll one d20",
+        description: "If you have inspiration, you can expend it when you make an attack roll, saving throw, or ability check. Spending your inspiration gives you advantage on that roll.",
+        color: "yellow",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 16,
+        title: "Invisible",
+        summary: "Can't be seen, advantage on attacks",
+        description: "An invisible creature is impossible to see without the aid of magic or a special sense. For the purpose of hiding, the creature is heavily obscured. The creature's location can be detected by any noise it makes or any tracks it leaves. Attack rolls against the creature have disadvantage, and the creature's attack rolls have advantage.",
+        color: "indigo",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 17,
+        title: "Healing Word",
+        summary: "Bonus action ranged heal",
+        description: "A creature of your choice that you can see within range regains hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs.",
+        color: "pink",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 18,
+        title: "Immovable Rod",
+        summary: "Becomes fixed in place",
+        description: "This flat iron rod has a button on one end. You can use an action to press the button, which causes the rod to become magically fixed in place. Until you or another creature uses an action to push the button again, the rod doesn't move, even if it is defying gravity.",
+        color: "blue",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 19,
+        title: "Opportunity Attack",
+        summary: "Attack when enemy leaves reach",
+        description: "You can make an opportunity attack when a hostile creature that you can see moves out of your reach. To make the opportunity attack, you use your reaction to make one melee attack against the provoking creature.",
+        color: "red",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 20,
+        title: "Bardic Inspiration",
+        summary: "Give ally extra d6 to roll",
+        description: "You can inspire others through stirring words or music. To do so, you use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die, a d6.",
+        color: "purple",
+        createdAt: new Date().toISOString()
+      }
+    ];
+
+    // Remove any existing cards with same IDs and add new sample cards
+    const existingIds = new Set(cards.map(card => card.id));
+    const newCards = sampleCards.filter(card => !existingIds.has(card.id));
+    setCards([...cards, ...newCards]);
+    setShowAboutModal(false);
+    alert(`Added ${newCards.length} sample D&D cards to test the app!`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Header */}
