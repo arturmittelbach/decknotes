@@ -392,7 +392,10 @@ const DeckNotes = () => {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-2">
+            <div className="grid gap-2" style={{
+              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+              maxWidth: '100%'
+            }}>
               {cards.map((card) => (
                 <div
                   key={card.id}
@@ -403,15 +406,15 @@ const DeckNotes = () => {
                   onDragLeave={handleDragLeave}
                   onDrop={(e) => handleDrop(e, card)}
                   onDragEnd={handleDragEnd}
-                  className={`${getColorClass(card.color)} rounded-lg p-3 cursor-pointer hover:opacity-90 transition-all h-28 flex flex-col
+                  className={`${getColorClass(card.color)} rounded-lg p-3 cursor-pointer hover:opacity-90 transition-all h-28 flex flex-col min-w-[180px]
                     ${draggedCard?.id === card.id ? 'opacity-50 transform rotate-3' : ''}
                     ${dragOverCard?.id === card.id ? 'ring-2 ring-white ring-opacity-50 transform scale-105' : ''}
                     ${draggedCard ? 'cursor-grabbing' : 'cursor-grab'}
                   `}
                   onClick={(e) => handleCardClick(card, e)}
                 >
-                  <h3 className="font-bold text-sm mb-1 text-white truncate">{card.title}</h3>
-                  <p className="text-xs text-gray-100 flex-1 overflow-hidden leading-tight">{card.summary}</p>
+                  <h3 className="font-bold text-base mb-1 text-white truncate">{card.title}</h3>
+                  <p className="text-sm text-gray-100 flex-1 overflow-hidden leading-tight">{card.summary}</p>
                 </div>
               ))}
             </div>
