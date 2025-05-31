@@ -11,6 +11,7 @@ const DeckNotes = () => {
   const [cardModalPosition, setCardModalPosition] = useState({ x: 0, y: 0 });
   const [draggedCard, setDraggedCard] = useState(null);
   const [dragOverCard, setDragOverCard] = useState(null);
+  const [showAboutModal, setShowAboutModal] = useState(false);
   const fileInputRef = useRef(null);
 
   // Form state
